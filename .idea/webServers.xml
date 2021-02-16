@@ -3,7 +3,7 @@
   <component name="WebServers">
     <option name="servers">
       <webServer id="fca53857-ef28-4c2f-b085-37743b6b9fa5" name="mbn" url="">
-        <fileTransfer host="thesoftwaregeeks.com" port="21" rootFolder="/public_html/e-commerce.thesoftwaregeeks.com">
+        <fileTransfer host="" port="21" rootFolder="/public_html/e-commerce.thesoftwaregeeks.com">
           <advancedOptions>
             <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
           </advancedOptions>

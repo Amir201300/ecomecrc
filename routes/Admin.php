@@ -49,6 +49,17 @@ Route::prefix('Admin')->group(function () {
             Route::get('/destroy/{id}', 'ProductController@destroy')->name('Product.destroy');
         });
 
+
+        // Brands Routes
+        Route::prefix('Brands')->group(function () {
+            Route::get('/index', 'BrandsController@index')->name('Brands.index');
+            Route::get('/allData', 'BrandsController@allData')->name('Brands.allData');
+            Route::post('/create', 'BrandsController@create')->name('Brands.create');
+            Route::get('/edit/{id}', 'BrandsController@edit')->name('Brands.edit');
+            Route::post('/update', 'BrandsController@update')->name('Brands.update');
+            Route::get('/destroy/{id}', 'BrandsController@destroy')->name('Brands.destroy');
+        });
+
     });
 });
 
