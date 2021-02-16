@@ -48,6 +48,8 @@ Route::prefix('Admin')->group(function () {
             Route::post('/update', 'ProductController@update')->name('Product.update');
             Route::get('/destroy/{id}', 'ProductController@destroy')->name('Product.destroy');
             Route::get('/ChangeStatus/{id}', 'ProductController@ChangeStatus')->name('Product.ChangeStatus');
+            Route::get('/ProductDetails/{id}', 'ProductController@ProductDetails')->name('Product.ProductDetails');
+            Route::post('/saveProductDetails', 'ProductController@saveProductDetails')->name('Product.saveProductDetails');
         });
 
 
@@ -59,6 +61,25 @@ Route::prefix('Admin')->group(function () {
             Route::get('/edit/{id}', 'BrandsController@edit')->name('Brands.edit');
             Route::post('/update', 'BrandsController@update')->name('Brands.update');
             Route::get('/destroy/{id}', 'BrandsController@destroy')->name('Brands.destroy');
+        });
+
+        // ProductImage Routes
+        Route::prefix('ProductImage')->group(function () {
+            Route::get('/index/{id}', 'ProductImageController@index')->name('ProductImage.index');
+            Route::get('/allData/{id}', 'ProductImageController@allData')->name('ProductImage.allData');
+            Route::post('/create', 'ProductImageController@create')->name('ProductImage.create');
+            Route::get('/destroy/{id}', 'ProductImageController@destroy')->name('ProductImage.destroy');
+        });
+
+
+        // ProductSizes Routes
+        Route::prefix('ProductSizes')->group(function () {
+            Route::get('/index/{id}', 'ProductSizesController@index')->name('ProductSizes.index');
+            Route::get('/allData/{id}', 'ProductSizesController@allData')->name('ProductSizes.allData');
+            Route::get('/edit/{id}', 'ProductSizesController@edit')->name('ProductSizes.edit');
+            Route::post('/create', 'ProductSizesController@create')->name('ProductSizes.create');
+            Route::post('/update', 'ProductSizesController@update')->name('ProductSizes.update');
+            Route::get('/destroy/{id}', 'ProductSizesController@destroy')->name('ProductSizes.destroy');
         });
 
     });

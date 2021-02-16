@@ -1,11 +1,7 @@
 @extends('Admin.includes.layouts.master')
 
 @section('title')
-     المنتجات
-@endsection
-
-@section('style')
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/spectrum-colorpicker2/dist/spectrum.min.css">
+    صور المنتج {{$title}}
 @endsection
 
 @section('content')
@@ -29,7 +25,7 @@
                                 <li class="breadcrumb-item">
                                     <a href="{{route('admin.dashboard')}}">الرشيسية</a>
                                 </li>
-                                <li class="breadcrumb-item active" aria-current="page">المنتجات</li>
+                                <li class="breadcrumb-item active" aria-current="page">صور المنتج {{$title}}</li>
                             </ol>
                         </nav>
                     </div>
@@ -52,11 +48,11 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="d-flex no-block align-items-center m-b-30">
-                                <h4 class="card-title">المنتجات</h4>
+                                <h4 class="card-title">صور المنتج {{$title}}</h4>
                                 <div class="ml-auto">
                                     <div class="btn-group">
                                         <button  class="btn btn-dark" id="titleOfText" data-toggle="modal" onclick="addFunction()">
-                                            اضافة منتج جديد
+                                            اضافة صورة جديد
                                         </button>
                                         &nbsp;
                                         <button  class="btn btn-danger " data-toggle="modal" onclick="deleteFunction(0,2)">
@@ -74,11 +70,7 @@
                                     <tr>
                                         <th class="sorting_asc" tabindex="0" aria-controls="file_export" rowspan="1" colspan="1" aria-sort="ascending" aria-label=" : activate to sort column descending" style="width: 0px;"> </th>
                                         <th>#</th>
-                                        <th>الاسم بالعربيه</th>
-                                        <th>الاسم بالانجليزيه</th>
-                                        <th>الصوره</th>
-                                        <th>حاله التفعيل</th>
-                                        <th>القسم</th>
+                                        <th>الصورة</th>
                                         <th>الاختيارات</th>
 
                                     </tr>
@@ -110,8 +102,7 @@
         <!-- ============================================================== -->
         <!-- footer -->
         <!-- ============================================================== -->
-    @include('Admin.Product.form')
-    @include('Admin.Product.DetailsForm')
+    @include('Admin.ProductImage.form')
 
     <!-- ============================================================== -->
         <!-- End footer -->
@@ -129,6 +120,6 @@
             });
         });
     </script>
-    @include('Admin.Product.script')
+    @include('Admin.ProductImage.script')
 
 @endsection

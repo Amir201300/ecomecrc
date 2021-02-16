@@ -3,6 +3,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\ProductDetials;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Brands;
@@ -59,7 +60,10 @@ class ProductController extends Controller
                 'icon.image' =>'من فضلك ادخل صورة صالحة'
             ]
         );
-        $this->save_product($request,new Product);
+        $product=$this->save_product($request,new Product);
+        $productDetials=new ProductDetials();
+        $productDetials->product_id=$product->id;
+        $productDetials->save();
         return $this->apiResponseMessage(1,'تم اضافة المنتج بنجاح',200);
     }
 
@@ -107,13 +111,14 @@ class ProductController extends Controller
         );
         $Product = Product::find($request->id);
         $this->save_product($request,$Product);
-        return $this->apiResponseMessage(1,'تم تعديل الماركه بنجاح',200);
+        return $this->apiResponseMessage(1,'تم تعديل المنتج بنجاح',200);
     }
 
 
     /**
      * @param $request
-     * @param $brand
+     * @param $product
+     * @return mixed
      */
     public function save_product($request,$product){
         $product->name_ar=$request->name_ar;
@@ -126,12 +131,27 @@ class ProductController extends Controller
         $product->offer_value=$request->offer_value;
         $product->brand_id=$request->brand_id;
         $product->cat_id=$request->cat_id;
+        $product->price_offer=getRateNumber($request->price,$request->offer_value,2);
         $product->status=1;
         if($request->icon) {
             deleteFile('Products',$product->icon);
             $product->icon=saveImage('Products',$request->icon);
         }
         $product->save();
+        if($request->is_offer ==1){
+            $this->updateSizesOffer($product);
+        }
+        return $product;
+    }
+
+    /**
+     * @param $product
+     */
+    private function updateSizesOffer($product){
+        foreach($product->sizes as $row){
+            $row->price_offer=getRateNumber($row->price,$product->offer_value,2);
+            $row->save();
+        }
     }
 
     /**
@@ -162,6 +182,32 @@ class ProductController extends Controller
         $Product->delete();
     }
 
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public  function ProductDetails($id){
+        $ProductDetials=ProductDetials::where('product_id',$id)->first();
+        return $ProductDetials;
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
+     */
+    public function saveProductDetails (Request $request){
+        $ProductDetials=ProductDetials::where('product_id',$request->product_id)->first();
+        $ProductDetials->product_dimensions=$request->product_dimensions;
+        $ProductDetials->manufacturer=$request->manufacturer;
+        $ProductDetials->country_of_origin=$request->country_of_origin;
+        $ProductDetials->item_weight=$request->item_weight;
+        $ProductDetials->fabric=$request->fabric;
+        $ProductDetials->style=$request->style;
+        $ProductDetials->pattern=$request->pattern;
+        $ProductDetials->save();
+        return $this->apiResponseMessage(1,'تم تعديل التفاصيل بنجاح',200);
+    }
+
 
     /**
      * @param $data
@@ -171,10 +217,11 @@ class ProductController extends Controller
     private function mainFunction($data)
     {
         return Datatables::of($data)->addColumn('action', function ($data) {
-            $options = '<td class="sorting_1"><button  class="btn btn-info waves-effect btn-circle waves-light" onclick="editFunction(' . $data->id . ')" type="button" ><i class="fa fa-spinner fa-spin" id="loadEdit_' . $data->id . '" style="display:none"></i><i class="sl-icon-wrench"></i></button>';
-            $options .= ' <button type="button" onclick="deleteFunction(' . $data->id . ',1)" class="btn btn-dribbble waves-effect btn-circle waves-light"><i class="sl-icon-trash"></i> </button></td>';
-           if($data->level == 1)
-                $options .= ' <a href="/Admin/Category/index?cat_id='.$data->id.'" title="الاقسام الفرعية" class="btn btn-success waves-effect btn-circle waves-light"><i class="icon-Add"></i> </a></td>';
+            $options = '<td class="sorting_1"><button title="تعديل" class="btn btn-info waves-effect btn-circle waves-light" onclick="editFunction(' . $data->id . ')" type="button" ><i class="fa fa-spinner fa-spin" id="loadEdit_' . $data->id . '" style="display:none"></i><i class="sl-icon-wrench"></i></button>';
+            $options .= ' <button type="button" title="حذف" onclick="deleteFunction(' . $data->id . ',1)" class="btn btn-dribbble waves-effect btn-circle waves-light"><i class="sl-icon-trash"></i> </button></td>';
+            $options .= ' <a title="صور المنتج" class="btn btn-info waves-effect btn-circle waves-light" href="/Admin/ProductImage/index/'.$data->id.'"><i class="icon-File-TextImage"></i> </a></td>';
+            $options .= ' <a title="احجام المنتج" class="btn btn-danger waves-effect btn-circle waves-light" href="/Admin/ProductSizes/index/'.$data->id.'"><i class="icon-Resize"></i> </a></td>';
+            $options .= ' <td class="sorting_1"><button title="التفاصيل الاضافية" class="btn btn-success waves-effect btn-circle waves-light" onclick="DetialsFunction(' . $data->id . ')" type="button" ><i class="fa fa-spinner fa-spin" id="loadDetalis_' . $data->id . '" style="display:none"></i><i class="icon-Add"></i></button>';
             return $options;
         })->addColumn('checkBox', function ($data) {
             $checkBox = '<td class="sorting_1">' .

@@ -44,7 +44,7 @@
 
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="example-email">العروض المتاحه</label>
+                                <label for="example-email">الخصومات</label>
                                 <select  id="is_offer" name="is_offer"  class="form-control"   >
                                     <option value="1">عليه عرض</option>
                                     <option value="2">لا يوجد عرض</option>

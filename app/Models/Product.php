@@ -10,4 +10,8 @@ class Product extends Model
     {
         return $this->belongsTo('App\Models\Category','cat_id');
     }
+
+    public function sizes(){
+        return $this->hasMany(ProductSize::class,'product_id');
+    }
 }

@@ -114,3 +114,44 @@
         })
     }
 </script>
+
+<script>
+    function DetialsFunction(id) {
+
+        $('#loadDetalis_' + id).css({'display': ''});
+
+        $.ajax({
+            url: "/Admin/Product/ProductDetails/" + id,
+            type: "GET",
+            dataType: "JSON",
+
+            success: function (data) {
+
+                $('#loadDetalis_' + id).css({'display': 'none'});
+
+                $('#DetailsTitle').text('التفاصيل الاضاقية');
+
+                $('#DetailsForm')[0].reset();
+
+                $('#DetailsModel').modal();
+
+
+                $('#product_dimensions').val(data.product_dimensions);
+                $('#manufacturer').val(data.manufacturer);
+                $('#item_weight').val(data.item_weight);
+                $('#country_of_origin').val(data.country_of_origin);
+                $('#fabric').val(data.fabric);
+                $('#pattern').val(data.pattern);
+                $('#neck_style').val(data.neck_style);
+                $('#product_id').val(data.product_id);
+                $('#style').val(data.style);
+            }
+        });
+    }
+
+
+    $('#DetailsForm').submit(function (e) {
+        e.preventDefault();
+        sendAjaxForm("{{route('Product.saveProductDetails')}}",'DetailsModel','saveD','DetailsForm');
+    })
+</script>
