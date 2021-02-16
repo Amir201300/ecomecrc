@@ -4,6 +4,9 @@
      المنتجات
 @endsection
 
+@section('style')
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/spectrum-colorpicker2/dist/spectrum.min.css">
+@endsection
 
 @section('content')
 
@@ -26,7 +29,7 @@
                                 <li class="breadcrumb-item">
                                     <a href="{{route('admin.dashboard')}}">الرشيسية</a>
                                 </li>
-                                <li class="breadcrumb-item active" aria-current="page"> المنتجات</li>
+                                <li class="breadcrumb-item active" aria-current="page">المنتجات</li>
                             </ol>
                         </nav>
                     </div>
@@ -49,10 +52,10 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="d-flex no-block align-items-center m-b-30">
-                                <h4 class="card-title"> المنتجات</h4>
+                                <h4 class="card-title">المنتجات</h4>
                                 <div class="ml-auto">
                                     <div class="btn-group">
-                                        <button  class="btn btn-dark" id="titleOfText" onclick="location.href='/Admin/Product/createForm'">
+                                        <button  class="btn btn-dark" id="titleOfText" data-toggle="modal" onclick="addFunction()">
                                             اضافة منتج جديد
                                         </button>
                                         &nbsp;
@@ -71,8 +74,11 @@
                                     <tr>
                                         <th class="sorting_asc" tabindex="0" aria-controls="file_export" rowspan="1" colspan="1" aria-sort="ascending" aria-label=" : activate to sort column descending" style="width: 0px;"> </th>
                                         <th>#</th>
-                                        <th>اللون</th>
-                                        <th>عدد المنتجات</th>
+                                        <th>الاسم بالعربيه</th>
+                                        <th>الاسم بالانجليزيه</th>
+                                        <th>الصوره</th>
+                                        <th>حاله التفعيل</th>
+                                        <th>القسم</th>
                                         <th>الاختيارات</th>
 
                                     </tr>

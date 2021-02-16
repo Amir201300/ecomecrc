@@ -12,28 +12,29 @@
                 <div class="modal-body">
                     <div class="row">
 
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label for="example-email">الاسم بالعربية</label>
                                 <input type="text" id="name_ar" name="name_ar" required class="form-control"   >
                             </div>
                         </div>
 
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label for="example-email">الاسم بالانجليزية</label>
                                 <input type="text" id="name_en" name="name_en" required class="form-control"   >
                             </div>
                         </div>
 
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label for="example-email">الصورة</label>
                                 <input type="file" id="image" name="image"  class="form-control"   >
                             </div>
                         </div>
 
-                        <div class="col-md-6">
+
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label for="example-email">الحالة</label>
                                 <select  id="status" name="status"  class="form-control"   >
@@ -47,7 +48,6 @@
                 </div>
                 <div id="err"></div>
                 <input type="hidden" name="id" id="id">
-                <input type="hidden" name="cat_id" id="cat_id" value="{{$cat_id}}">
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary"  data-dismiss="modal">اغلاق</button>
                     <button type="submit" id="save" class="btn btn-success"><i class="ti-save"></i> حفظ</button>

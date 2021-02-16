@@ -63,13 +63,13 @@
                     </a>
                 </li>
 
-{{--                <li class="sidebar-item">--}}
-{{--                    <a class="sidebar-link  waves-effect waves-dark" href="{{route('Product.index')}}"--}}
-{{--                       aria-expanded="false">--}}
-{{--                        <i class="icon-Shopping-Bag"></i>--}}
-{{--                        <span class="hide-menu">المنتجات</span>--}}
-{{--                    </a>--}}
-{{--                </li>--}}
+                <li class="sidebar-item">
+                    <a class="sidebar-link  waves-effect waves-dark" href="{{route('Product.index')}}"
+                       aria-expanded="false">
+                        <i class="icon-Shopping-Bag"></i>
+                        <span class="hide-menu">المنتجات</span>
+                    </a>
+                </li>
 
                 <li class="sidebar-item">
                     <a class="sidebar-link  waves-effect waves-dark" href="{{route('Brands.index')}}"

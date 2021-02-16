@@ -23,13 +23,16 @@
 
         buttons: ['copy', 'excel', 'pdf'],
 
-        ajax: "{{ route('Product.allData') }}",
+        ajax: "{{ route('Product.allData')}}",
 
         columns: [
             {data: 'checkBox', name: 'checkBox'},
             {data: 'id', name: 'id'},
-            {data: 'ProductCode', name: 'ProductCode'},
-            {data: 'productNum', name: 'productNum'},
+            {data: 'name_ar', name: 'name_ar'},
+            {data: 'name_en', name: 'name_en'},
+            {data: 'icon', name: 'icon'},
+            {data: 'status', name: 'status'},
+            {data: 'cat_id', name: 'cat_id'},
             {data: 'action', name: 'action', orderable: false, searchable: false},
         ]
     });
@@ -59,13 +62,22 @@
 
                 $('#save').text('تعديل');
 
-                $('#titleOfModel').text('تعديل القسم');
+                $('#titleOfModel').text('تعديل المنتج');
 
                 $('#formSubmit')[0].reset();
 
                 $('#formModel').modal();
 
-                $('#Product-picker').val(data.ProductCode);
+                $('#name_ar').val(data.name_ar);
+                $('#name_en').val(data.name_en);
+                $('#status').val(data.status);
+                $('#cat_id').val(data.cat_id);
+                $('#desc_en').val(data.desc_en);
+                $('#desc_ar').val(data.desc_ar);
+                $('#offer_value').val(data.offer_value);
+                $('#is_offer').val(data.is_offer);
+                $('#price').val(data.price);
+                $('#brand_id').val(data.brand_id);
                 $('#id').val(data.id);
             }
         });
@@ -86,4 +98,19 @@
     }
 
 
+</script>
+
+<script>
+    function ChangeStatus(status,id) {
+        Toset('طلبك قيد التنفيذ','info','',false);
+        $.ajax({
+            url : '/Admin/Product/ChangeStatus/' +id +'?status='+status,
+            type : 'get',
+            success : function(data){
+                $.toast().reset('all');
+                table.ajax.reload();
+                Toset('تمت العملية بنجاح','success','',5000);
+            }
+        })
+    }
 </script>
