@@ -10,7 +10,7 @@ function send_email_with_code($user, $type, $transKey)
     $subject=__('email.'.$transKey);
     $email=$user->email;
     $data=[];
-    $data['code']=$type == 1 ? $user->active_code : $type==2 ? $user->password_code : '';
+    $data['code']=$type == 1 ? $user->active_code : $user->password_code ;
     $data['language']=$lang;
     $name=$user->name;
 

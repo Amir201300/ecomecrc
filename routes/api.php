@@ -35,6 +35,11 @@ Route::middleware('auth:api')->group(function () {
         Route::post('/reset_password', 'Api\UserController@reset_password')->name('user.reset_password');
     });
 
+    //whishlist
+    Route::prefix('whishlist')->group(function()
+    {
+        Route::post('/addTOWhishlist', 'Api\WhishlistController@addTOWhishlist')->name('whishlist.addTOWhishlist');
+    });
 });
 /** End Auth Route **/
 
