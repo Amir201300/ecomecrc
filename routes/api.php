@@ -40,6 +40,8 @@ Route::middleware('auth:api')->group(function () {
     {
         Route::post('/addTOWhishlist', 'Api\WhishlistController@addTOWhishlist')->name('whishlist.addTOWhishlist');
     });
+
+
 });
 /** End Auth Route **/
 
@@ -49,4 +51,10 @@ Route::prefix('Auth_general')->group(function()
     Route::post('/register', 'Api\UserController@register')->name('user.register');
     Route::post('/login', 'Api\UserController@login')->name('user.login');
     Route::post('/forget_password', 'Api\UserController@forget_password')->name('user.forget_password');
+});
+
+//Category
+Route::prefix('Category')->group(function()
+{
+    Route::get('/mainCategory', 'Api\CategoryController@mainCategory')->name('Category.mainCategory');
 });

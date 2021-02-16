@@ -19,7 +19,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale(),
 
 {
     Route::get('/' , function(){
-      return url('/');
+      return view('home');
     });
 
 });

@@ -25,9 +25,9 @@ class CreateProductsTable extends Migration
             $table->string('offer_value')->nullable();
             $table->tinyInteger('rate')->nullable();
             $table->string('icon')->nullable();
-            $table->unsignedBigInteger('brand_id');
+            $table->unsignedBigInteger('brand_id')->nullable();
             $table->foreign('brand_id')->references('id')->on('brands')->onDelete('set null');
-            $table->unsignedBigInteger('cat_id');
+            $table->unsignedBigInteger('cat_id')->nullable();
             $table->foreign('cat_id')->references('id')->on('categories')->onDelete('cascade');
             $table->timestamps();
         });
