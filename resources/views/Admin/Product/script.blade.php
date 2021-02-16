@@ -23,13 +23,16 @@
 
         buttons: ['copy', 'excel', 'pdf'],
 
-        ajax: "{{ route('Product.allData') }}",
+        ajax: "{{ route('Product.allData')}}",
 
         columns: [
             {data: 'checkBox', name: 'checkBox'},
             {data: 'id', name: 'id'},
-            {data: 'ProductCode', name: 'ProductCode'},
-            {data: 'productNum', name: 'productNum'},
+            {data: 'name_ar', name: 'name_ar'},
+            {data: 'name_en', name: 'name_en'},
+            {data: 'icon', name: 'icon'},
+            {data: 'status', name: 'status'},
+            {data: 'cat_id', name: 'cat_id'},
             {data: 'action', name: 'action', orderable: false, searchable: false},
         ]
     });
@@ -59,13 +62,22 @@
 
                 $('#save').text('تعديل');
 
-                $('#titleOfModel').text('تعديل القسم');
+                $('#titleOfModel').text('تعديل المنتج');
 
                 $('#formSubmit')[0].reset();
 
                 $('#formModel').modal();
 
-                $('#Product-picker').val(data.ProductCode);
+                $('#name_ar').val(data.name_ar);
+                $('#name_en').val(data.name_en);
+                $('#status').val(data.status);
+                $('#cat_id').val(data.cat_id);
+                $('#desc_en').val(data.desc_en);
+                $('#desc_ar').val(data.desc_ar);
+                $('#offer_value').val(data.offer_value);
+                $('#is_offer').val(data.is_offer);
+                $('#price').val(data.price);
+                $('#brand_id').val(data.brand_id);
                 $('#id').val(data.id);
             }
         });
@@ -86,4 +98,60 @@
     }
 
 
+</script>
+
+<script>
+    function ChangeStatus(status,id) {
+        Toset('طلبك قيد التنفيذ','info','',false);
+        $.ajax({
+            url : '/Admin/Product/ChangeStatus/' +id +'?status='+status,
+            type : 'get',
+            success : function(data){
+                $.toast().reset('all');
+                table.ajax.reload();
+                Toset('تمت العملية بنجاح','success','',5000);
+            }
+        })
+    }
+</script>
+
+<script>
+    function DetialsFunction(id) {
+
+        $('#loadDetalis_' + id).css({'display': ''});
+
+        $.ajax({
+            url: "/Admin/Product/ProductDetails/" + id,
+            type: "GET",
+            dataType: "JSON",
+
+            success: function (data) {
+
+                $('#loadDetalis_' + id).css({'display': 'none'});
+
+                $('#DetailsTitle').text('التفاصيل الاضاقية');
+
+                $('#DetailsForm')[0].reset();
+
+                $('#DetailsModel').modal();
+
+
+                $('#product_dimensions').val(data.product_dimensions);
+                $('#manufacturer').val(data.manufacturer);
+                $('#item_weight').val(data.item_weight);
+                $('#country_of_origin').val(data.country_of_origin);
+                $('#fabric').val(data.fabric);
+                $('#pattern').val(data.pattern);
+                $('#neck_style').val(data.neck_style);
+                $('#product_id').val(data.product_id);
+                $('#style').val(data.style);
+            }
+        });
+    }
+
+
+    $('#DetailsForm').submit(function (e) {
+        e.preventDefault();
+        sendAjaxForm("{{route('Product.saveProductDetails')}}",'DetailsModel','saveD','DetailsForm');
+    })
 </script>

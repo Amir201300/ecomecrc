@@ -24,6 +24,7 @@ class CreateProductsTable extends Migration
             $table->double('price_offer',12,2)->nullable();
             $table->string('offer_value')->nullable();
             $table->tinyInteger('rate')->nullable();
+            $table->smallInteger('status')->default(0)->nullable();
             $table->string('icon')->nullable();
             $table->unsignedBigInteger('brand_id')->nullable();
             $table->foreign('brand_id')->references('id')->on('brands')->onDelete('set null');

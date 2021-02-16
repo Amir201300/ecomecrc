@@ -129,3 +129,43 @@ $('#formModel').modal();
     }
 
 </script>
+
+
+
+<script>
+    function sendAjaxForm(url,model,submitButton,formName){
+        $("#"+submitButton).attr("disabled", true);
+
+        Toset('الطلب قيد التتنفيد','info','يتم تنفيذ طلبك الان',false);
+        var id = $('#id').val();
+
+        var formData = new FormData($('#'+formName)[0]);
+
+        $.ajax({
+            url: url,
+            type: "post",
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function (data) {
+                if (data.status == 1) {
+
+                    $("#save").attr("disabled", true);
+                    $.toast().reset('all');
+                    swal(data.message, {
+                        icon: "success",
+                    });
+                    table.ajax.reload();
+                    $("#"+model).modal('toggle');
+                    $("#"+submitButton).attr("disabled", false);
+                    $('#err').slideUp(200);
+                }
+            },
+            error: function (y) {
+            alert('حاول مجددا')
+                $("#"+submitButton).attr("disabled", false);
+
+            }
+        });
+    }
+</script>
