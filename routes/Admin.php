@@ -82,6 +82,26 @@ Route::prefix('Admin')->group(function () {
             Route::get('/destroy/{id}', 'ProductSizesController@destroy')->name('ProductSizes.destroy');
         });
 
+        // Sliders Routes
+        Route::prefix('Sliders')->group(function () {
+            Route::get('/index', 'SlidersController@index')->name('Sliders.index');
+            Route::get('/allData', 'SlidersController@allData')->name('Sliders.allData');
+            Route::get('/edit/{id}', 'SlidersController@edit')->name('Sliders.edit');
+            Route::post('/create', 'SlidersController@create')->name('Sliders.create');
+            Route::post('/update', 'SlidersController@update')->name('Sliders.update');
+            Route::get('/destroy/{id}', 'SlidersController@destroy')->name('Sliders.destroy');
+        });
+
+        // Discount_code Routes
+        Route::prefix('Discount_code')->group(function () {
+            Route::get('/index', 'Discount_codeController@index')->name('Discount_code.index');
+            Route::get('/allData', 'Discount_codeController@allData')->name('Discount_code.allData');
+            Route::get('/edit/{id}', 'Discount_codeController@edit')->name('Discount_code.edit');
+            Route::post('/create', 'Discount_codeController@create')->name('Discount_code.create');
+            Route::post('/update', 'Discount_codeController@update')->name('Discount_code.update');
+            Route::get('/destroy/{id}', 'Discount_codeController@destroy')->name('Discount_code.destroy');
+        });
+
     });
 });
 

@@ -79,6 +79,21 @@
                     </a>
                 </li>
 
+                <li class="sidebar-item">
+                    <a class="sidebar-link  waves-effect waves-dark" href="{{route('Sliders.index')}}"
+                       aria-expanded="false">
+                        <i class="icon-File-Block"></i>
+                        <span class="hide-menu">صور السلايدرز</span>
+                    </a>
+                </li>
+
+                <li class="sidebar-item">
+                    <a class="sidebar-link  waves-effect waves-dark" href="{{route('Discount_code.index')}}"
+                       aria-expanded="false">
+                        <i class="icon-Coin"></i>
+                        <span class="hide-menu">كود الخصم</span>
+                    </a>
+                </li>
 
 {{--                <li class="sidebar-item">--}}
 {{--                    <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)"--}}
