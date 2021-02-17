@@ -10,13 +10,29 @@ class HandleDataReposatry implements HandleDataInterface{
     /**
      * @param $model
      * @param $request
-     * @return array|mixed
+     * @param $resource
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response|mixed
      */
     public function getAllData($model, $request,$resource)
     {
         $page=$request->page * 20;
         $lang=$request->header('lang');
-        $data=$model::skip($page)->take(20)->get();
+        $is_paginate=$model->count()  - ( $page + 20)> 0 ? true : false;
+        $data=$model->skip($page)->take(20)->get();
+        $msg=$lang=='en' ? 'success' : 'تمت العملية بنجاح';
+        return $this->apiResponseData($resource::collection($data),$msg,200,$is_paginate);
+    }
+
+    /**
+     * @param $model
+     * @param $request
+     * @param $resource
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response|mixed
+     */
+    public function getAllDataDashboard($model, $request,$resource)
+    {
+        $lang=$request->header('lang');
+        $data=$model->get();
         $msg=$lang=='en' ? 'success' : 'تمت العملية بنجاح';
         return $this->apiResponseData($resource::collection($data),$msg,200);
     }
@@ -60,6 +76,5 @@ class HandleDataReposatry implements HandleDataInterface{
         $data->delete();
         $msg=$lang=='en' ? 'deleted successfully' :'تم الحذف بنجاح'  ;
         return $this->apiResponseMessage(0,$msg,200);
-
     }
 }

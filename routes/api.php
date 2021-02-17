@@ -38,10 +38,38 @@ Route::middleware('auth:api')->group(function () {
     //whishlist
     Route::prefix('whishlist')->group(function()
     {
-        Route::post('/addTOWhishlist', 'Api\WhishlistController@addTOWhishlist')->name('whishlist.addTOWhishlist');
+        Route::post('/addTOWhishlist', 'Api\ProductsController@addTOWhishlist')->name('whishlist.addTOWhishlist');
+        Route::get('/myWhishlist', 'Api\ProductsController@myWhishlist')->name('whishlist.myWhishlist');
+    });
+
+    /** Locations */
+    Route::prefix('Locations')->group(function () {
+        Route::post('/add_address', 'Api\LocationsController@add_address')->name('Locations.add_address');
+        Route::post('/edit_address/{id}', 'Api\LocationsController@edit_address')->name('Locations.edit_address');
+        Route::post('/delete_address/{id}', 'Api\LocationsController@delete_address')->name('Locations.delete_address');
+        Route::get('/single_address/{id}', 'Api\LocationsController@single_address')->name('Locations.single_address');
+        Route::get('/my_addresses', 'Api\LocationsController@my_addresses')->name('Locations.my_addresses');
+        Route::post('/changeDefault/{id}', 'Api\LocationsController@changeDefault')->name('Locations.changeDefault');
+    });
+
+    /** Cart */
+    Route::prefix('Cart')->group(function () {
+        Route::post('/addToCart', 'Api\CartController@addToCart')->name('Cart.addToCart');
+        Route::get('/myCart', 'Api\CartController@myCart')->name('Cart.myCart');
+        Route::post('/deleteMyCart', 'Api\CartController@deleteMyCart')->name('Cart.deleteMyCart');
+        Route::post('/deleteFromCart', 'Api\CartController@deleteFromCart')->name('Cart.deleteFromCart');
+        Route::post('/updateCart', 'Api\CartController@updateCart')->name('Cart.updateCart');
     });
 
 
+    /** Order */
+    Route::prefix('Order')->group(function () {
+        Route::post('/makeOrder', 'Api\OrderController@makeOrder')->name('Order.makeOrder');
+        Route::post('/checkDiscountCode', 'Api\OrderController@checkDiscountCode')->name('Order.checkDiscountCode');
+        Route::post('/removeDiscountCode', 'Api\OrderController@removeDiscountCode')->name('Order.removeDiscountCode');
+        Route::get('/myOrders', 'Api\OrderController@myOrders')->name('Order.myOrders');
+        Route::get('/singleOrder', 'Api\OrderController@singleOrder')->name('Order.singleOrder');
+    });
 });
 /** End Auth Route **/
 
@@ -57,4 +85,12 @@ Route::prefix('Auth_general')->group(function()
 Route::prefix('Category')->group(function()
 {
     Route::get('/mainCategory', 'Api\CategoryController@mainCategory')->name('Category.mainCategory');
+    Route::get('/subCategory', 'Api\CategoryController@subCategory')->name('Category.subCategory');
+});
+
+//Category
+Route::prefix('Products')->group(function()
+{
+    Route::get('/ProductsByCategory', 'Api\ProductsController@ProductsByCategory')->name('Products.ProductsByCategory');
+    Route::get('/singleProduct', 'Api\ProductsController@singleProduct')->name('Products.singleProduct');
 });

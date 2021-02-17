@@ -5,10 +5,18 @@ namespace App\Traits;
 trait ApiResponseTrait
 {
 
-    public function apiResponseData($data = null, $message = null, $code = 200)
+    public function apiResponseData($data = null, $message = null, $code = 200,$is_paginate=null)
     {
+        $array = [
+            'status' =>  1,
+            'message' => $message,
+            'data'=>$data,
+        ];
+        if(isset($is_paginate)){
+            $array['is_paginate']=$is_paginate;
+        }
 
-        return response()->json(['status'=>1, 'data'=>$data,'message'=>$message],200);
+        return response($array, 200);
     }
 
 
@@ -19,6 +27,7 @@ trait ApiResponseTrait
             'message' => $message,
             'data'=>null,
         ];
+
         return response($array, 200);
     }
 

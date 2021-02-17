@@ -34,7 +34,7 @@ class ProductController extends Controller
      */
     public function index(Request $request)
     {
-        $Cat = Category::all();
+        $Cat = Category::where('level',2)->get();
         $brand = Brands::all();
         return view('Admin.Product.index',compact('Cat','brand'));
     }

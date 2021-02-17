@@ -38,13 +38,13 @@ class User extends Authenticatable
 
     public function my_wishlist()
     {
-        return $this->belongsToMany('App\Models\Products','whishlists','user_id','product_id');
+        return $this->belongsToMany(Product::class,'whishlists','user_id','product_id');
     }
 
     public function my_cart()
     {
-        return $this->belongsToMany('App\Models\Products','carts','user_id','product_id')
-            ->withPivot('color_id','size_id','quantity');
+        return $this->belongsToMany(Product::class,'carts','user_id','product_id')
+            ->where('is_order',0)->withPivot('color_id','size_id','quantity');
     }
 
     public function orders()

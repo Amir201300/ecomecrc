@@ -39,9 +39,10 @@
 
 <body>
 @include('Fronted.layouts.load')
+
 @include('Fronted.layouts.header')
 
-
+@yield('content')
 <!-- tap to top -->
 <div class="tap-top top-cls">
     <div>

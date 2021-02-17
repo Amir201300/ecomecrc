@@ -6,7 +6,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 use App\Http\Controllers\Manage\BaseController;
 
 
-class CategoryResource extends JsonResource
+class AddressResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,12 +16,15 @@ class CategoryResource extends JsonResource
      */
     public function toArray($request)
     {
-        $lang=$request->header('lang');
         return [
             'id' => $this->id,
-            'name' =>$lang =='en' ? $this->name_en : $this->name_ar,
-            'desc' =>$lang =='en' ? $this->desc_en : $this->desc_ar,
-            'image' => getImageUrl('Category',$this->image),
+            'lat' => $this->lat,
+            'lng' => $this->lng,
+            'address' => $this->address,
+            'city' => $this->city,
+            'place_type' => $this->place_type,
+            'place_name' => $this->place_name,
+            'note'=>$this->note,
         ];
     }
 }

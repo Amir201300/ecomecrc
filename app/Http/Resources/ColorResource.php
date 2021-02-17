@@ -3,10 +3,8 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-use App\Http\Controllers\Manage\BaseController;
-
-
-class CategoryResource extends JsonResource
+use DB;
+class ColorResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,12 +14,11 @@ class CategoryResource extends JsonResource
      */
     public function toArray($request)
     {
-        $lang=$request->header('lang');
+        $co=$this->colorCode;
+        $color= trim($co,"#");
         return [
             'id' => $this->id,
-            'name' =>$lang =='en' ? $this->name_en : $this->name_ar,
-            'desc' =>$lang =='en' ? $this->desc_en : $this->desc_ar,
-            'image' => getImageUrl('Category',$this->image),
+            'color_code' => $color,
         ];
     }
 }
